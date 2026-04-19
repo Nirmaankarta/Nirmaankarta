@@ -24,41 +24,45 @@ body {
   overflow-x: hidden;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  body { cursor: none; }
-  .cursor, .cursor-ring { display: block; }
+/* Enable custom cursor only on desktop */
+body.custom-cursor {
+  cursor: none;
 }
 
-.cursor {
-  display: none;
-  width: 10px; height: 10px;
-  background: rgba(13,13,13,0.95);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.2);
-  border-radius: 50%;
+/* Base cursor styles */
+.cursor,
+.cursor-ring {
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .2s, height .2s;
-}
-
-.cursor-ring {
-  display: none;
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(13,13,13,0.95);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width .2s, height .2s, opacity .2s;
-  opacity: .6;
+  display: none;
 }
 
+/* Activate only for mouse devices */
 @media (hover: hover) and (pointer: fine) {
-  body { cursor: none; }
-  .cursor, .cursor-ring { display: block; }
+
+  /* Center dot */
+  .cursor {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #1976D2;
+  }
+
+  /* Outer ring */
+  .cursor-ring {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #1976D2;
+    opacity: 0.8;
+    transition: transform 0.2s, opacity 0.2s, border-color 0.2s;
+    z-index: 9998;
+  }
 }
+
 
 
 /* Hide default cursor only when custom is active */
