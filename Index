@@ -4,258 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nirmaankarta — Portfolio</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
-    <style>
-        :root {
-            --ink: #0d0d0d;
-            --paper: #F5F0E8;
-            --warm-white: #FAF7F2;
-            --saffron: #1976D2;
-            --saffron-deep: #0D47A1;
-            --saffron-light: #42A5F5;
-            --saffron-pale: #E3F2FD;
-            --terracotta: #B85C38;
-            --charcoal: #2C2C2A;
-            --muted: #7A7060;
-            --border: rgba(13,13,13,0.12);
-            --nav-h: 68px;
-        }
-
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--paper);
-            color: var(--ink);
-            font-family: 'Syne', sans-serif;
-            font-size: 16px;
-            overflow-x: hidden;
-        }
-
-        /* --- Custom Cursor --- */
-        body.custom-cursor { cursor: none; }
-        .cursor, .cursor-ring { 
-            display: none; 
-            position: fixed; 
-            pointer-events: none; 
-            z-index: 9999; 
-            transform: translate(-50%, -50%); 
-            border-radius: 50%;
-        }
-        
-        @media (hover: hover) and (pointer: fine) {
-            .cursor { display: block; width: 8px; height: 8px; background: #930505; }
-            .cursor-ring { 
-                display: block; width: 32px; height: 32px; 
-                border: 2px solid #00005a; opacity: 0.8; z-index: 9998;
-                transition: transform .2s, width .2s, height .2s, opacity .2s;
-            }
-        }
-
-        /* --- Grain Effect --- */
-        body::before {
-            content: '';
-            position: fixed; inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: 1000; opacity: .45;
-        }
-
-        /* --- Nav --- */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            height: var(--nav-h);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5vw; z-index: 200;
-            transition: background .3s, border-color .3s;
-        }
-        nav.scrolled {
-            background: rgba(245,240,232,.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px; font-weight: 600;
-            letter-spacing: .04em; color: var(--ink);
-            text-decoration: none; position: relative; z-index: 201;
-        }
-        .logo span { color: var(--saffron); }
-        .nav-links { display: flex; gap: 36px; list-style: none; }
-        .nav-links a {
-            font-size: 12px; letter-spacing: .14em;
-            text-transform: uppercase; color: var(--charcoal);
-            text-decoration: none; transition: color .2s; position: relative;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -2px; left: 0;
-            width: 0; height: 1.5px; background: var(--saffron); transition: width .3s ease;
-        }
-        .nav-links a:hover { color: var(--saffron); }
-        .nav-links a:hover::after { width: 100%; }
-
-        .hamburger {
-            display: none; flex-direction: column; justify-content: center; gap: 5px;
-            width: 44px; height: 44px; background: none; border: none; cursor: pointer;
-            position: relative; z-index: 201;
-        }
-        .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--ink); transition: .3s; }
-        .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* --- Mobile Drawer --- */
-        .mobile-menu {
-            display: none; position: fixed; inset: 0; background: var(--paper); z-index: 199;
-            flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-            opacity: 0; transform: translateY(-10px); transition: .3s ease; pointer-events: none;
-        }
-        .mobile-menu.open { opacity: 1; transform: translateY(0); pointer-events: all; display: flex; }
-        .mobile-menu a {
-            font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 10vw, 58px);
-            color: var(--ink); text-decoration: none; padding: 8px 24px;
-        }
-        .menu-footer { position: absolute; bottom: 36px; font-size: 11px; text-transform: uppercase; color: var(--muted); }
-
-        /* --- Hero --- */
-        .hero {
-            min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr;
-            align-items: center; gap: 40px; padding: calc(var(--nav-h) + 48px) 5vw 60px;
-            position: relative; overflow: hidden;
-        }
-        .hero-bg-text {
-            position: absolute; bottom: -4vh; right: -2vw; font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(90px,18vw,260px); color: transparent; -webkit-text-stroke: 1px rgba(232,98,42,.1);
-            pointer-events: none; line-height: 1;
-        }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 6vw, 96px); font-weight: 300; line-height: 1.02; margin-bottom: 24px; }
-        h1 em { font-style: italic; color: var(--saffron); }
-        .hero-desc { font-size: 15px; line-height: 1.7; color: var(--muted); max-width: 380px; margin-bottom: 40px; }
-        .hero-cta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-        
-        .btn-primary {
-            background: var(--saffron); color: #fff; padding: 14px 28px; font-size: 12px;
-            text-transform: uppercase; text-decoration: none; transition: .2s; display: inline-block;
-        }
-        .btn-primary:hover { background: var(--saffron-deep); transform: translateY(-1px); }
-        .btn-ghost { font-size: 12px; text-transform: uppercase; color: var(--charcoal); border-bottom: 1px solid var(--charcoal); text-decoration: none; }
-
-        .hero-right { display: flex; justify-content: flex-end; position: relative; }
-        .hero-image-frame { width: clamp(200px, 36vw, 500px); aspect-ratio: 3/4; background: linear-gradient(145deg,#E8C4A0,#D4906A,#B85C38); position: relative; }
-        .hero-frame-label { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(13,13,13,.72); backdrop-filter: blur(8px); padding: 14px 18px; color: #fff; }
-        .hero-floating-badge {
-            position: absolute; bottom: -16px; right: -16px; width: 92px; height: 92px; background: var(--saffron);
-            border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: #fff; font-size: 9px; text-transform: uppercase; animation: spin-slow 18s linear infinite;
-        }
-        @keyframes spin-slow { to { transform: rotate(360deg); } }
-
-        /* --- Marquee --- */
-        .marquee-wrap { overflow: hidden; padding: 16px 0; background: var(--ink); }
-        .marquee-track { display: flex; gap: 40px; animation: marquee 22s linear infinite; white-space: nowrap; width: max-content; }
-        .marquee-track span { font-size:11px; text-transform:uppercase; color:rgba(255,255,255,.55); }
-        @keyframes marquee { to { transform: translateX(-50%); } }
-
-        /* --- Sections --- */
-        section { padding: 100px 5vw; }
-        .section-eyebrow { font-size: 11px; text-transform: uppercase; color: var(--saffron); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-        .section-eyebrow::before { content:''; width:22px; height:1px; background:var(--saffron); }
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4.5vw, 60px); font-weight: 300; line-height: 1.08; color: var(--ink); }
-        h2 em { font-style: italic; color: var(--saffron); }
-
-        /* --- About --- */
-        .about-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:72px; align-items:center; margin-top:52px; }
-        .about-image-stack { position:relative; height:480px; }
-        .about-img-back { position:absolute; top:0; left:0; width:78%; aspect-ratio:1; background:var(--saffron-pale); border:1px solid rgba(232,98,42,.2); }
-        .about-img-front { position:absolute; bottom:0; right:0; width:72%; aspect-ratio:.85; background:linear-gradient(135deg,#C7916A 0%,#A05A38 100%); display:flex; align-items:flex-end; padding:20px; }
-        .about-stat-pill { position:absolute; top:50%; left:-24px; transform:translateY(-50%); background:var(--ink); color:#fff; padding:14px 18px; display:flex; flex-direction:column; }
-        .about-stat-pill .num { font-family:'Cormorant Garamond',serif; font-size:34px; color:var(--saffron); }
-        .skills-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:28px; }
-        .skill-tag { border:1px solid var(--border); padding:7px 14px; font-size:11px; text-transform:uppercase; transition: .2s; }
-        .skill-tag:hover { background:var(--saffron-pale); border-color:var(--saffron); }
-
-        /* --- Work --- */
-        .work-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:52px; }
-        .projects-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:20px; }
-        .project-card { position:relative; overflow:hidden; }
-        .proj-a { grid-column:1/8; } .proj-b { grid-column:8/13; } .proj-c { grid-column:1/5; } .proj-d { grid-column:5/13; }
-        .project-img { width:100%; aspect-ratio:16/9; transition: .5s; }
-        .proj-b .project-img, .proj-c .project-img { aspect-ratio:4/3; }
-        .project-card:hover .project-img { transform:scale(1.04); }
-        .project-overlay { position:absolute; inset:0; background:rgba(13,13,13,.76); opacity:0; transition:.3s; display:flex; flex-direction:column; justify-content:flex-end; padding:24px; }
-        .project-card:hover .project-overlay { opacity:1; }
-        .project-meta { padding:12px 0 0; display:flex; justify-content:space-between; }
-        .fill-terracotta { background:linear-gradient(135deg,#C97B5A 0%,#8C4B2A 100%); }
-        .fill-teal { background:linear-gradient(135deg,#5AAFA0 0%,#2A7A6E 100%); }
-        .fill-ink { background:linear-gradient(135deg,#4A4A45 0%,#1A1A18 100%); }
-        .fill-gold { background:linear-gradient(135deg,#E0B87A 0%,#B0843A 100%); }
-
-        /* --- Process --- */
-        .process-section { background:var(--ink); }
-        .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:52px; }
-        .process-step { background:rgba(255,255,255,.04); padding:32px 24px; border:1px solid rgba(255,255,255,.07); transition: .2s; }
-        .process-step:hover { background:rgba(232,98,42,.1); }
-        .step-num { font-family:'Cormorant Garamond',serif; font-size:48px; color:rgba(232,98,42,.3); }
-        .step-title { color:var(--warm-white); margin: 10px 0; }
-        .step-desc { font-size:13px; color:rgba(255,255,255,.42); line-height:1.7; }
-
-        /* --- Testimonials --- */
-        .testimonials-wrap { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:52px; }
-        .testimonial-card { border:1px solid var(--border); padding:36px 30px; transition: .2s; }
-        .testimonial-card:hover { border-color:var(--saffron); }
-        .quote-mark { font-family:'Cormorant Garamond',serif; font-size:72px; color:var(--saffron); opacity:.4; }
-
-        /* --- Contact & Footer --- */
-        .contact-section { background:var(--saffron); text-align:center; padding:90px 6vw; }
-        .contact-email { font-family:'Cormorant Garamond',serif; font-size:clamp(17px,3vw,36px); color:#fff; display:block; margin:20px 0 40px; text-decoration:none; font-style:italic; }
-        .social-row { display:flex; justify-content:center; gap:24px; margin-top:44px; }
-        .social-link { font-size:11px; color:rgba(255,255,255,.65); text-decoration:none; text-transform:uppercase; }
-        footer { background:var(--ink); padding:32px 5vw; display:flex; justify-content:space-between; color:rgba(255,255,255,.45); }
-
-        /* --- Reveal Animation --- */
-        .reveal { opacity:0; transform:translateY(24px); transition: .65s ease; }
-        .reveal.visible { opacity:1; transform:translateY(0); }
-        .reveal-delay-1 { transition-delay:.1s; }
-        .reveal-delay-2 { transition-delay:.2s; }
-        .reveal-delay-3 { transition-delay:.3s; }
-
-        /* --- Responsive --- */
-        @media (max-width:860px) {
-            .nav-links { display:none; }
-            .hamburger { display:flex; }
-            .hero { grid-template-columns:1fr; }
-            .about-grid { grid-template-columns:1fr; }
-            .process-steps { grid-template-columns:1fr 1fr; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .proj-a, .proj-b, .proj-c, .proj-d { grid-column: 1 / -1; }
-
-            /* Update the dot cursor */
-.cursor {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: #1976D2; /* Changed from #000 to Blue */
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-}
-
-/* Update the ring cursor */
-.cursor-ring {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 2px solid #1976D2; /* Changed from #000 to Blue */
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  opacity: 0.8;
-}
-        }
-    </style>
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -265,17 +17,18 @@
 <nav id="main-nav">
     <a href="#" class="logo">Nirmaankarta<span>.</span></a>
     <ul class="nav-links">
+      <li><a href="#about">Tools</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
     </button>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu">
+<div class="mobile-menu" id="mobile-menu" aria-label="Navigation">
     <a href="#about">About</a>
     <a href="#work">Work</a>
     <a href="#process">Process</a>
@@ -301,7 +54,7 @@
             </div>
         </div>
         <div class="hero-floating-badge">
-            <span style="font-size: 22px; font-weight: 600;">7+</span>
+            <span class="big">7+</span>
             Years of<br>Craft
         </div>
     </div>
@@ -310,18 +63,25 @@
 
 <div class="marquee-wrap">
     <div class="marquee-track">
-        <span>Brand Identity</span><span style="color:var(--saffron)">·</span>
-        <span>Visual Design</span><span style="color:var(--saffron)">·</span>
-        <span>Web Experiences</span><span style="color:var(--saffron)">·</span>
-        <span>Motion Graphics</span><span style="color:var(--saffron)">·</span>
-        <span>UI / UX</span><span style="color:var(--saffron)">·</span>
-        <span>Brand Identity</span><span style="color:var(--saffron)">·</span>
-        <span>Visual Design</span><span style="color:var(--saffron)">·</span>
-        <span>Web Experiences</span><span style="color:var(--saffron)">·</span>
-        <span>Motion Graphics</span><span style="color:var(--saffron)">·</span>
-        <span>UI / UX</span>
+        <span>Brand Identity</span><span class="dot">·</span>
+        <span>Visual Design</span><span class="dot">·</span>
+        <span>Web Experiences</span><span class="dot">·</span>
+        <span>Motion Graphics</span><span class="dot">·</span>
+        <span>Editorial Design</span><span class="dot">·</span>
+        <span>Art Direction</span><span class="dot">·</span>
+        <span>UI / UX</span><span class="dot">·</span>
+        <span>Illustration</span><span class="dot">·</span>
+        <span>Brand Identity</span><span class="dot">·</span>
+        <span>Visual Design</span><span class="dot">·</span>
+        <span>Web Experiences</span><span class="dot">·</span>
+        <span>Motion Graphics</span><span class="dot">·</span>
+        <span>Editorial Design</span><span class="dot">·</span>
+        <span>Art Direction</span><span class="dot">·</span>
+        <span>UI / UX</span><span class="dot">·</span>
+        <span>Illustration</span><span class="dot">·</span>
     </div>
 </div>
+
 
 <section id="about">
     <div class="section-eyebrow">Who I Am</div>
@@ -329,11 +89,11 @@
         <div class="about-image-stack reveal">
             <div class="about-img-back"></div>
             <div class="about-img-front">
-                <span style="color:rgba(255,255,255,0.8); font-style:italic;">"Creation is not a product,<br>it is a practice."</span>
+                <span class="about-img-front-label">"Creation is not a product,<br>it is a practice."</span>
             </div>
             <div class="about-stat-pill">
                 <span class="num">40+</span>
-                <span style="font-size:10px; text-transform:uppercase; color:rgba(255,255,255,0.5);">Projects</span>
+                <span class="label">Projects</span>
             </div>
         </div>
         <div class="about-text reveal reveal-delay-1">
@@ -344,35 +104,59 @@
                 <span class="skill-tag">Visual Design</span>
                 <span class="skill-tag">Typography</span>
                 <span class="skill-tag">Web Design</span>
+                <span class="skill-tag">Art Direction</span>
                 <span class="skill-tag">Motion</span>
+                <span class="skill-tag">Illustration</span>
+                <span class="skill-tag">Photography</span>
             </div>
         </div>
     </div>
 </section>
 
-<section id="work">
+<section id="work" style="padding-top:0;">
     <div class="work-header">
         <div>
             <div class="section-eyebrow">Selected Projects</div>
             <h2>Work that<br><em>speaks</em> for itself.</h2>
         </div>
+        <a href="#contact" class="btn-ghost">Start a Project →</a>
     </div>
     <div class="projects-grid">
         <div class="project-card proj-a reveal">
             <div class="project-img fill-terracotta"></div>
             <div class="project-overlay">
-                <div class="proj-title">Mitti — Artisanal Ceramics</div>
-                <a href="#" style="color:#fff; font-size:11px; text-decoration:none; border-bottom:1px solid #fff;">View Case Study</a>
+                <div class="cat">Brand Identity</div>
+                <div class="proj-title">Mitti — Artisanal Ceramics Brand</div>
+                <a href="#" class="see-more">View Case Study</a>
             </div>
-            <div class="project-meta"><span>Mitti Ceramics</span><span>2024</span></div>
+            <div class="project-meta"><span class="name">Mitti Ceramics</span><span class="year">2024</span></div>
         </div>
         <div class="project-card proj-b reveal reveal-delay-1">
             <div class="project-img fill-teal"></div>
             <div class="project-overlay">
+                <div class="cat">Web Experience</div>
                 <div class="proj-title">Aranya — Sustainable Fashion</div>
-                <a href="#" style="color:#fff; font-size:11px; text-decoration:none; border-bottom:1px solid #fff;">View Case Study</a>
+                <a href="#" class="see-more">View Case Study</a>
             </div>
-            <div class="project-meta"><span>Aranya Studio</span><span>2024</span></div>
+            <div class="project-meta"><span class="name">Aranya Studio</span><span class="year">2024</span></div>
+        </div>
+        <div class="project-card proj-c reveal reveal-delay-2">
+            <div class="project-img fill-ink"></div>
+            <div class="project-overlay">
+                <div class="cat">Editorial</div>
+                <div class="proj-title">Katha — Literary Magazine</div>
+                <a href="#" class="see-more">View Case Study</a>
+            </div>
+            <div class="project-meta"><span class="name">Katha Magazine</span><span class="year">2023</span></div>
+        </div>
+        <div class="project-card proj-d reveal reveal-delay-3">
+            <div class="project-img fill-gold"></div>
+            <div class="project-overlay">
+                <div class="cat">Art Direction</div>
+                <div class="proj-title">Sona — Jewellery Campaign</div>
+                <a href="#" class="see-more">View Case Study</a>
+            </div>
+            <div class="project-meta"><span class="name">Sona Jewels</span><span class="year">2023</span></div>
         </div>
     </div>
 </section>
@@ -384,22 +168,45 @@
         <div class="process-step reveal">
             <div class="step-num">01</div>
             <div class="step-title">Discover</div>
-            <div class="step-desc">Deep-dive conversations to understand your goals and audience.</div>
+            <div class="step-desc">Deep-dive conversations to understand your goals, audience, and the story worth telling.</div>
         </div>
         <div class="process-step reveal reveal-delay-1">
             <div class="step-num">02</div>
             <div class="step-title">Define</div>
-            <div class="step-desc">Distilling insights into a clear creative direction.</div>
+            <div class="step-desc">Distilling insights into a clear creative direction — a north star that guides every decision.</div>
         </div>
         <div class="process-step reveal reveal-delay-2">
             <div class="step-num">03</div>
             <div class="step-title">Design</div>
-            <div class="step-desc">Iterative craft until the work earns its place.</div>
+            <div class="step-desc">Iterative craft across concepts, typography, color, and form until the work earns its place.</div>
         </div>
         <div class="process-step reveal reveal-delay-3">
             <div class="step-num">04</div>
             <div class="step-title">Deliver</div>
-            <div class="step-desc">Polished files and guides to help your work live fully.</div>
+            <div class="step-desc">Polished files, brand guides, and ongoing support to help your work live fully in the world.</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="section-eyebrow">Kind Words</div>
+    <h2>What clients<br><em>say.</em></h2>
+    <div class="testimonials-wrap">
+        <div class="testimonial-card reveal">
+            <span class="quote-mark">"</span>
+            <p class="testimonial-text">Nirmaankarta completely transformed how our brand is perceived. The depth of thinking behind every visual choice was extraordinary.</p>
+            <div class="testimonial-author">
+                <div class="author-avatar av-1">PR</div>
+                <div><div class="author-name">Priya Raghavan</div><div class="author-title">Founder, Aranya Studio</div></div>
+            </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-1">
+            <span class="quote-mark">"</span>
+            <p class="testimonial-text">What struck me most was the intentionality. Every decision felt considered. We now have an identity we're genuinely proud of.</p>
+            <div class="testimonial-author">
+                <div class="author-avatar av-2">AK</div>
+                <div><div class="author-name">Arjun Khanna</div><div class="author-title">Creative Director, Sona Jewels</div></div>
+            </div>
         </div>
     </div>
 </section>
@@ -408,8 +215,11 @@
     <div class="section-eyebrow">Get in Touch</div>
     <h2>Ready to build<br><em style="color:rgba(255,255,255,0.8);">something remarkable?</em></h2>
     <a href="mailto:hello@nirmaankarta.com" class="contact-email">hello@nirmaankarta.com</a>
+    <a href="mailto:hello@nirmaankarta.com" class="btn-primary">Start a Conversation</a>
     <div class="social-row">
         <a href="https://www.instagram.com/nirmaankarta/" class="social-link">Instagram</a>
+        <a href="#" class="social-link">Behance</a>
+        <a href="#" class="social-link">Dribbble</a>
         <a href="https://www.linkedin.com/company/nirmaankarta" class="social-link">LinkedIn</a>
     </div>
 </section>
@@ -419,115 +229,6 @@
     <p>© 2026 Nirmaankarta. All rights reserved.</p>
 </footer>
 
-<script>
-    // --- Cursor Logic ---
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursor-ring');
-    let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
-
-    const isMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-    if (isMouse && cursor && ring) {
-        document.body.classList.add("custom-cursor");
-        document.addEventListener("mousemove", (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateCursor() {
-            cursor.style.left = mouseX + "px";
-            cursor.style.top = mouseY + "px";
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
-            ring.style.left = ringX + "px";
-            ring.style.top = ringY + "px";
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        document.querySelectorAll("a, button, .project-card, .skill-tag").forEach((el) => {
-            el.addEventListener("mouseenter", () => {
-                ring.style.transform = "translate(-50%, -50%) scale(1.5)";
-                ring.style.opacity = "0.4";
-            });
-            el.addEventListener("mouseleave", () => {
-                ring.style.transform = "translate(-50%, -50%) scale(1)";
-                ring.style.opacity = "0.8";
-            });
-        });
-    }
-
-    document.querySelectorAll("a, button, .project-card, .skill-tag").forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    ring.style.transform = "translate(-50%, -50%) scale(1.5)";
-    ring.style.borderColor = "#42A5F5"; // Optional: Changes to a lighter blue on hover
-    ring.style.opacity = "0.4";
-  });
-
-  el.addEventListener("mouseleave", () => {
-    ring.style.transform = "translate(-50%, -50%) scale(1)";
-    ring.style.borderColor = "#1976D2"; // Reverts to primary blue
-    ring.style.opacity = "0.8";
-  });
-});
-
-    // --- Hamburger & Mobile Menu ---
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    let menuOpen = false;
-
-    function toggleMenu(state) {
-        menuOpen = state;
-        hamburger.classList.toggle('open', state);
-        mobileMenu.classList.toggle('open', state);
-        document.body.style.overflow = state ? 'hidden' : '';
-    }
-
-    hamburger.addEventListener('click', () => toggleMenu(!menuOpen));
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => toggleMenu(false));
-    });
-
-    // --- Scroll & Reveal ---
-    const nav = document.getElementById('main-nav');
-    const reveals = document.querySelectorAll('.reveal');
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    reveals.forEach(el => observer.observe(el));
-
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
-
-    // Replace the hardcoded projects in your script.js with this:
-async function displayProjects() {
-    const response = await fetch('projects.json');
-    const projects = await response.json();
-    const container = document.querySelector('.projects-grid');
-    
-    container.innerHTML = projects.map(proj => `
-        <div class="project-card reveal">
-            <div class="project-img ${proj.imageClass}"></div>
-            <div class="project-overlay">
-                <div class="proj-title">${proj.title}</div>
-                <a href="#" class="see-more">View Case Study</a>
-            </div>
-            <div class="project-meta">
-                <span class="name">${proj.title}</span>
-                <span class="year">${proj.year}</span>
-            </div>
-        </div>
-    `).join('');
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
