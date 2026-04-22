@@ -29,68 +29,52 @@ body {
   .cursor, .cursor-ring { display: block; }
 }
 
-.cursor {
-  display: none;
-  width: 10px; height: 10px;
-  background: rgba(13,13,13,0.95);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.2);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .2s, height .2s;
+/* Base Cursor Styles */
+.cursor, .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #000; /* Adjust to your brand color */
+    border-radius: 50%;
+    pointer-events: none; /* VERY IMPORTANT: Allows clicks to pass through */
+    user-select: none;
+    z-index: 9999;
+    /* This ensures the center of the dot is on the mouse tip */
+    margin-left: -4px; 
+    margin-top: -4px;
+    transition: transform 0.1s ease-out; 
 }
 
+/* The Outer Ring */
 .cursor-ring {
-  display: none;
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(13,13,13,0.95);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width .2s, height .2s, opacity .2s;
-  opacity: .6;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin-left: -15px;
+    margin-top: -15px;
+    /* Slightly slower transition for a "lag" effect */
+    transition: transform 0.2s ease-out, width 0.3s, height 0.3s;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  body { cursor: none; }
-  .cursor, .cursor-ring { display: block; }
+/* Hover State effect (from JS) */
+.cursor-active {
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-
-/* Hide default cursor only when custom is active */
-body.custom-cursor {
-  cursor: none;
+/* Hide the default system cursor if you want a fully custom feel */
+body {
+    cursor: none;
 }
-
-/* Dot cursor */
-.cursor {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: #000;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-}
-
-/* Black outline ring */
-.cursor-ring {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 2px solid #000; /* 👈 ALWAYS BLACK OUTLINE */
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  opacity: 0.8;
-}
-body::before {
+a, button {
+    cursor: none;
+}body::before {
   content: '';
   position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
