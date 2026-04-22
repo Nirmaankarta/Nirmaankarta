@@ -1,3 +1,35 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+
+    // Update cursor position on mouse move
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        // 1. Move the main dot immediately
+        cursor.style.transform = `translate(${posX}px, ${posY}px)`;
+
+        // 2. Move the ring with a tiny bit of CSS transition for smoothness
+        // We use requestAnimationFrame for high performance
+        requestAnimationFrame(() => {
+            cursorRing.style.transform = `translate(${posX}px, ${posY}px)`;
+        });
+    });
+
+    // Optional: Add hover effect for links/buttons
+    const interactiveElements = document.querySelectorAll('a, button, .project-card');
+    
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorRing.classList.add('cursor-active');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorRing.classList.remove('cursor-active');
+        });
+    });
+});
+
 // ── Hamburger menu ──
 const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
