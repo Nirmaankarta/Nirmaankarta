@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirmaankarta — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav id="main-nav">
+    <a href="#" class="logo">Nirmaankarta<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">Tools</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu" aria-label="Navigation">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+    <span class="menu-footer">Nirmaankarta · Creative Portfolio</span>
+</div>
+
+<section class="hero">
+    <div class="hero-left">
+        <div class="hero-eyebrow">Creative Portfolio</div>
+        <h1>Crafting <em>stories</em><br>that build<br>worlds.</h1>
+        <p class="hero-desc">A multidisciplinary creator blending design, strategy, and craft to build experiences people remember. Based in India, working globally.</p>
+        <div class="hero-cta">
+            <a href="#work" class="btn-primary">View My Work</a>
+            <a href="#contact" class="btn-ghost">Let's Talk</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="hero-image-frame">
+            <div class="hero-frame-label">
+                <div class="name">Nirmaankarta</div>
+                <div class="role">Designer · Storyteller · Builder</div>
+            </div>
+        </div>
+        <div class="hero-floating-badge">
+            <span class="big">7+</span>
+            Years of<br>Craft
+        </div>
+    </div>
+    <div class="hero-bg-text" aria-hidden="true">NK</div>
+</section>
+
+<div class="marquee-wrap">
+    <div class="marquee-track">
+        <span>Brand Identity</span><span class="dot">·</span>
+        <span>Visual Design</span><span class="dot">·</span>
+        <span>Web Experiences</span><span class="dot">·</span>
+        <span>Motion Graphics</span><span class="dot">·</span>
+        <span>Editorial Design</span><span class="dot">·</span>
+        <span>Art Direction</span><span class="dot">·</span>
+        <span>UI / UX</span><span class="dot">·</span>
+        <span>Illustration</span><span class="dot">·</span>
+        <span>Brand Identity</span><span class="dot">·</span>
+        <span>Visual Design</span><span class="dot">·</span>
+        <span>Web Experiences</span><span class="dot">·</span>
+        <span>Motion Graphics</span><span class="dot">·</span>
+        <span>Editorial Design</span><span class="dot">·</span>
+        <span>Art Direction</span><span class="dot">·</span>
+        <span>UI / UX</span><span class="dot">·</span>
+        <span>Illustration</span><span class="dot">·</span>
+    </div>
+</div>
+
+
+<section id="about">
+    <div class="section-eyebrow">Who I Am</div>
+    <div class="about-grid">
+        <div class="about-image-stack reveal">
+            <div class="about-img-back"></div>
+            <div class="about-img-front">
+                <span class="about-img-front-label">"Creation is not a product,<br>it is a practice."</span>
+            </div>
+            <div class="about-stat-pill">
+                <span class="num">40+</span>
+                <span class="label">Projects</span>
+            </div>
+        </div>
+        <div class="about-text reveal reveal-delay-1">
+            <h2>A <em>creator</em> at<br>heart &amp; craft.</h2>
+            <p>I'm Nirmaankarta — which means <em>creator</em> in Sanskrit. My work lives at the intersection of visual storytelling and purposeful craft. I believe great design doesn't just look beautiful; it communicates, persuades, and endures.</p>
+            <div class="skills-row">
+                <span class="skill-tag">Brand Strategy</span>
+                <span class="skill-tag">Visual Design</span>
+                <span class="skill-tag">Typography</span>
+                <span class="skill-tag">Web Design</span>
+                <span class="skill-tag">Art Direction</span>
+                <span class="skill-tag">Motion</span>
+                <span class="skill-tag">Illustration</span>
+                <span class="skill-tag">Photography</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="work" style="padding-top:0;">
+    <div class="work-header">
+        <div>
+            <div class="section-eyebrow">Selected Projects</div>
+            <h2>Work that<br><em>speaks</em> for itself.</h2>
+        </div>
+        <a href="#contact" class="btn-ghost">Start a Project →</a>
+    </div>
+    <div class="projects-grid">
+        <div class="project-card proj-a reveal">
+            <div class="project-img fill-terracotta"></div>
+            <div class="project-overlay">
+                <div class="cat">Brand Identity</div>
+                <div class="proj-title">Mitti — Artisanal Ceramics Brand</div>
+                <a href="#" class="see-more">View Case Study</a>
+            </div>
+            <div class="project-meta"><span class="name">Mitti Ceramics</span><span class="year">2024</span></div>
+        </div>
+        <div class="project-card proj-b reveal reveal-delay-1">
+            <div class="project-img fill-teal"></div>
+            <div class="project-overlay">
+                <div class="cat">Web Experience</div>
+                <div class="proj-title">Aranya — Sustainable Fashion</div>
+                <a href="#" class="see-more">View Case Study</a>
+            </div>
+            <div class="project-meta"><span class="name">Aranya Studio</span><span class="year">2024</span></div>
+        </div>
+        <div class="project-card proj-c reveal reveal-delay-2">
+            <div class="project-img fill-ink"></div>
+            <div class="project-overlay">
+                <div class="cat">Editorial</div>
+                <div class="proj-title">Katha — Literary Magazine</div>
+                <a href="#" class="see-more">View Case Study</a>
+            </div>
+            <div class="project-meta"><span class="name">Katha Magazine</span><span class="year">2023</span></div>
+        </div>
+        <div class="project-card proj-d reveal reveal-delay-3">
+            <div class="project-img fill-gold"></div>
+            <div class="project-overlay">
+                <div class="cat">Art Direction</div>
+                <div class="proj-title">Sona — Jewellery Campaign</div>
+                <a href="#" class="see-more">View Case Study</a>
+            </div>
+            <div class="project-meta"><span class="name">Sona Jewels</span><span class="year">2023</span></div>
+        </div>
+    </div>
+</section>
+
+<section id="process" class="process-section">
+    <div class="section-eyebrow">How I Work</div>
+    <h2 style="color:#FAF7F2;">From concept<br>to <em style="color:var(--saffron-light);">creation.</em></h2>
+    <div class="process-steps">
+        <div class="process-step reveal">
+            <div class="step-num">01</div>
+            <div class="step-title">Discover</div>
+            <div class="step-desc">Deep-dive conversations to understand your goals, audience, and the story worth telling.</div>
+        </div>
+        <div class="process-step reveal reveal-delay-1">
+            <div class="step-num">02</div>
+            <div class="step-title">Define</div>
+            <div class="step-desc">Distilling insights into a clear creative direction — a north star that guides every decision.</div>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+            <div class="step-num">03</div>
+            <div class="step-title">Design</div>
+            <div class="step-desc">Iterative craft across concepts, typography, color, and form until the work earns its place.</div>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+            <div class="step-num">04</div>
+            <div class="step-title">Deliver</div>
+            <div class="step-desc">Polished files, brand guides, and ongoing support to help your work live fully in the world.</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="section-eyebrow">Kind Words</div>
+    <h2>What clients<br><em>say.</em></h2>
+    <div class="testimonials-wrap">
+        <div class="testimonial-card reveal">
+            <span class="quote-mark">"</span>
+            <p class="testimonial-text">Nirmaankarta completely transformed how our brand is perceived. The depth of thinking behind every visual choice was extraordinary.</p>
+            <div class="testimonial-author">
+                <div class="author-avatar av-1">PR</div>
+                <div><div class="author-name">Priya Raghavan</div><div class="author-title">Founder, Aranya Studio</div></div>
+            </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-1">
+            <span class="quote-mark">"</span>
+            <p class="testimonial-text">What struck me most was the intentionality. Every decision felt considered. We now have an identity we're genuinely proud of.</p>
+            <div class="testimonial-author">
+                <div class="author-avatar av-2">AK</div>
+                <div><div class="author-name">Arjun Khanna</div><div class="author-title">Creative Director, Sona Jewels</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact-section">
+    <div class="section-eyebrow">Get in Touch</div>
+    <h2>Ready to build<br><em style="color:rgba(255,255,255,0.8);">something remarkable?</em></h2>
+    <a href="mailto:hello@nirmaankarta.com" class="contact-email">hello@nirmaankarta.com</a>
+    <a href="mailto:hello@nirmaankarta.com" class="btn-primary">Start a Conversation</a>
+    <div class="social-row">
+        <a href="https://www.instagram.com/nirmaankarta/" class="social-link">Instagram</a>
+        <a href="#" class="social-link">Behance</a>
+        <a href="#" class="social-link">Dribbble</a>
+        <a href="https://www.linkedin.com/company/nirmaankarta" class="social-link">LinkedIn</a>
+    </div>
+</section>
+
+<footer>
+    <a href="#" class="logo">Nirmaankarta<span>.</span></a>
+    <p>© 2026 Nirmaankarta. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
