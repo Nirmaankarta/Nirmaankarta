@@ -81,49 +81,35 @@ window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
-const cursor = document.getElementById("cursor");
-const ring = document.getElementById("cursor-ring");
+// ── Custom cursor (desktop / mouse only) ──
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx=-200, my=-200, rx=-200, ry=-200;
 
-let mouseX = -100;
-let mouseY = -100;
-let ringX = -100;
-let ringY = -100;
+const isMouse = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-// detect desktop
-const isMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+if (isMouse) {
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+    });
 
-if (cursor && ring && isMouse) {
-  document.body.classList.add("custom-cursor");
+    (function loop() {
+        cursor.style.left = mx + 'px';
+        cursor.style.top = my + 'px';
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + 'px';
+        ring.style.top = ry + 'px';
+        requestAnimationFrame(loop);
+    })();
 
-  document.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function animate() {
-    // dot follows instantly
-    cursor.style.left = mouseX + "px";
-    cursor.style.top = mouseY + "px";
-
-    // ring follows smoothly
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-
-    ring.style.left = ringX + "px";
-    ring.style.top = ringY + "px";
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
+    document.querySelectorAll('a, button, .project-card, .skill-tag').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            ring.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        });
+        el.addEventListener('mouseleave', () => {
+            ring.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+    });
 }
-
-document.querySelectorAll("a, button").forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    ring.style.transform = "translate(-50%, -50%) scale(1.5)";
-  });
-
-  el.addEventListener("mouseleave", () => {
-    ring.style.transform = "translate(-50%, -50%) scale(1)";
-  });
-});
